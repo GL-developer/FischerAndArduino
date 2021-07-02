@@ -4,7 +4,7 @@
 ### Part 2. 턴테이블 입니다.
 
 
-<embed width="100%" height="420px" src="https://www.youtube.com/embed/ieNxUGgxXxM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></embed>
+<iframe width="720px" height="420px" src="https://www.youtube.com/embed/ieNxUGgxXxM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### 위 영상에서 사용된 키트가 궁금하시다면 아래를 확인해주세요!
 ### CLICK_!!👉👉 http://www.glcompany.kr/onbr/shop/sho...
