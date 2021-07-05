@@ -4,8 +4,8 @@
 ### Part 2. 턴테이블 입니다.
 
 
-<iframe width='720px' height='420px' src='https://www.youtube.com/embed/ieNxUGgxXxM' allowfullscreen></iframe>
 
+[![Watch the video](https://img.youtube.com/vi/ieNxUGgxXxM/0.jpg)](https://www.youtube.com/watch?v=ieNxUGgxXxM)
 ### 위 영상에서 사용된 키트가 궁금하시다면 아래를 확인해주세요!
 ### CLICK_!!👉👉 http://www.glcompany.kr/onbr/shop/sho...
 
