@@ -4,7 +4,7 @@
 
 ### Part 2. 턴테이블 입니다.
 
-[![Watch the video](https://img.youtube.com/vi/ieNxUGgxXxM/0.jpg)](https://www.youtube.com/watch?v=ieNxUGgxXxM)
+[![Watch the video](https://img.youtube.com/vi/eOYXyHZK-Sk/0.jpg)](https://www.youtube.com/watch?v=eOYXyHZK-Sk)
 #### ↑↑↑↑↑↑↑↑ 클릭 시 해당 영상으로 이동합니다. ↑↑↑↑↑↑↑↑
 #### 위 영상에서 사용된 키트가 궁금하시다면 아래를 확인해주세요!
 #### CLICK_!!👉👉 http://www.glcompany.kr/onbr/shop/sho...
