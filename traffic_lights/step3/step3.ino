@@ -1,50 +1,75 @@
-int digit[11][8] = {
-  // A,B,C,D,E,F,G,DOT LED //캐소드방식. 애노드는 1과0을 반대로 입력
-  {1, 1, 1, 1, 1, 1, 0, 1}, // 0.
-  {0, 1, 1, 0, 0, 0, 0, 1}, // 1.
-  {1, 1, 0, 1, 1, 0, 1, 1}, // 2.
-  {1, 1, 1, 1, 0, 0, 1, 1}, // 3.
-  {0, 1, 1, 0, 0, 1, 1, 1}, // 4.
-  {1, 0, 1, 1, 0, 1, 1, 1}, // 5.
-  {1, 0, 1, 1, 1, 1, 1, 1}, // 6.
-  {1, 1, 1, 0, 0, 0, 0, 1}, // 7.
-  {1, 1, 1, 1, 1, 1, 1, 1}, // 8.
-  {1, 1, 1, 1, 0, 1, 1, 1}, // 9.
-  {0, 0, 0, 0, 0, 0, 0, 0} //10(Off)
-};
-
-int seg_num[8] = {2, 3, 4, 5, 6, 7, 8, 9}; //A, B, C, D, E, F, G, DOT
-
+#include <SoftwareSerial.h>
+#define DEBUG true
+ 
+SoftwareSerial esp8266(2,3); // make RX Arduino line is pin 2, make TX Arduino line is pin 3.
+                                        // This means that you need to connect the TX line from the esp to the Arduino's pin 2
+                                        // and the RX line from the esp to the Arduino's pin 3
+ 
 void setup() {
-  pinMode(13, OUTPUT); //초록불 출력
-  pinMode(10, OUTPUT); //빨간불 출력
-  // 7세그먼트에 연결된 디지털 핀을 출력모드로 설정
-  for (int i = 0; i < 8; i++) {
-    pinMode(seg_num[i], OUTPUT);
-  }
-}
-
-void loop() { //초록불 5초 점등 후, 5번깜빡인 후, 빨간불5초 점등
-  digitalWrite(13, HIGH);  //  초록불 점등
-  delay(5000);  // 5초동안
-
-  for (int i = 5; i > 0; i--)  { // 5~1까지 1초간격으로 표시
-    displayDigit(i);
-    digitalWrite(13, LOW);
-    delay(1000);
-    digitalWrite(13, HIGH);
-    delay(1000);
-  }
-  displayDigit(10);
+  Serial.begin(9600);
+  esp8266.begin(9600); // your esp's baud rate might be different
+  
+  pinMode(11, OUTPUT);
+  digitalWrite(11, LOW);
+  
+  pinMode(12, OUTPUT);
+  digitalWrite(12, LOW);
+  
+  pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
-  digitalWrite(10, HIGH);
-  delay(5000);
-  digitalWrite(10, LOW);
+   
+  sendData("AT+RST\r\n",2000,DEBUG); // reset module
+  sendData("AT+CIOBAUD?\r\n",2000,DEBUG); // check baudrate (redundant)
+  sendData("AT+CWMODE=3\r\n",1000,DEBUG); // configure as access point (working mode: AP+STA)
+  sendData("AT+CWLAP\r\n",3000,DEBUG); // list available access points
+  sendData("AT+CWJAP=\"GLC2.4G\",\"glc123455\"\r\n",5000,DEBUG); // join the access point
+  sendData("AT+CIFSR\r\n",1000,DEBUG); // get ip address
+  sendData("AT+CIPMUX=1\r\n",1000,DEBUG); // configure for multiple connections
+  sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG); // turn on server on port 80
 }
-void displayDigit(int n)
-{
-  for (int i = 0; i < 8; i++) {
-    digitalWrite(seg_num[i], digit[n] [i]);
-    //segment number(pin) 지정된 핀에 신호를 보냄
+ 
+void loop() {
+  if(esp8266.available()) { // check if the esp is sending a message
+    if(esp8266.find("+IPD,")) {
+      delay(1000); // wait for the serial buffer to fill up (read all the serial data)
+      // get the connection id so that we can then disconnect
+      int connectionId = esp8266.read()-48; // subtract 48 because the read() function returns 
+                                           // the ASCII decimal value and 0 (the first decimal number) starts at 48
+      esp8266.find("pin="); // advance cursor to "pin="
+      int pinNumber = (esp8266.read()-48)*10; // get first number i.e. if the pin 13 then the 1st number is 1, then multiply to get 10
+      pinNumber += (esp8266.read()-48); // get second number, i.e. if the pin number is 13 then the 2nd number is 3, then add to the first number
+      digitalWrite(pinNumber, !digitalRead(pinNumber)); // toggle pin    
+     
+      // make close command
+      String closeCommand = "AT+CIPCLOSE="; 
+      closeCommand+=connectionId; // append connection id
+      closeCommand+="\r\n";
+      sendData(closeCommand,1000,DEBUG); // close connection
+    }
   }
+}
+ 
+/*
+* Name: sendData
+* Description: Function used to send data to ESP8266.
+* Params: command - the data/command to send; timeout - the time to wait for a response; debug - print to Serial window?(true = yes, false = no)
+* Returns: The response from the esp8266 (if there is a reponse)
+*/
+String sendData(String command, const int timeout, boolean debug) {
+    String response = "";
+    esp8266.print(command); // send the read character to the esp8266
+    long int time = millis();
+    
+    while( (time+timeout) > millis()) {
+      while(esp8266.available()) {
+        // The esp has data so display its output to the serial window 
+        char c = esp8266.read(); // read the next character.
+        response+=c;
+      }
+    }
+    
+    if(debug) {
+      Serial.print(response);
+    }
+    return response;
 }
