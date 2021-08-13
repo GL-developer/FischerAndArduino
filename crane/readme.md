@@ -7,9 +7,8 @@
 [![Watch the video](https://img.youtube.com/vi/VYNjAl6mdxY/0.jpg)](https://www.youtube.com/watch?v=VYNjAl6mdxY)
 #### ↑↑↑↑↑↑↑↑ 클릭 시 해당 영상으로 이동합니다. ↑↑↑↑↑↑↑↑
 #### 위 영상에서 사용된 키트가 궁금하시다면 아래를 확인해주세요!
-#### CLICK_!!👉👉 http://www.glcompany.kr/onbr/shop/sho...
-
-#### [GL컴퍼니 홈페이지] http://www.glcompany.kr/onbr/Shop/hom...  
+#### CLICK_!!👉👉 http://www.glcompany.kr/onbr/shop/shopproduct/?pgk=%2Fshopproduct&lang=ko
+#### [GL컴퍼니 홈페이지] http://www.glcompany.kr/
 #### [GL컴퍼니 네이버 카페] https://cafe.naver.com/glcedu  
 #### [피셔테크닉 블로그] https://blog.naver.com/guality100 
 #### [ 대표전화 ]  070 - 4231 - 0729
